@@ -10,7 +10,7 @@ namespace NZWalks.API.Repositories
 
         public SQLRegionRepository(NZWalksDbContext dbContext)
         {
-              this.dbContext = dbContext
+            this.dbContext = dbContext;
         }
 
         public async Task<List<Region>> GetAllAsync()
