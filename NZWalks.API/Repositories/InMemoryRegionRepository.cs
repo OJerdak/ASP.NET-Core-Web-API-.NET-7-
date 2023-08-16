@@ -2,7 +2,7 @@
 
 namespace NZWalks.API.Repositories
 {
-    public class InMemoryRegionRepository : IRegionRepository
+    public class InMemoryRegionRepository /*: IRegionRepository*/
     {
         public async Task<List<Region>> GetAllAsync()
         {
