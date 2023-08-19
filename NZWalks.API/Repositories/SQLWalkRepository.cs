@@ -31,9 +31,12 @@ namespace NZWalks.API.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Walk?> GetByIdAsync(Guid id)
+        public async Task<Walk?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Walks
+                .Include("Difficulty")
+                .Include("Region")
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<Walk?> UpdateAsync(Guid id, Walk walk)
