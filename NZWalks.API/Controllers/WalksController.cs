@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using NZWalks.API.CustomActionFilters;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
@@ -45,40 +46,34 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Create([FromBody] AddWalkRequestDto walkRequestDto)
         {
-            if(ModelState.IsValid)
-            {
-                var walk = _mapper.Map<Walk>(walkRequestDto);
+            var walk = _mapper.Map<Walk>(walkRequestDto);
 
-                await _walkRespository.CreateAsync(walk);
+            await _walkRespository.CreateAsync(walk);
 
-                return Ok(_mapper.Map<WalkDto>(walk));
-            }
-            
-            return BadRequest(ModelState);
-            
+            return Ok(_mapper.Map<WalkDto>(walk));
+                        
         }
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [ValidateModel]
         public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody] UpdateWalkRequestDto updateWalkRequestDto)
         {
-            if (ModelState.IsValid)
-            {
-                var walk = _mapper.Map<Walk>(updateWalkRequestDto);
-
-                walk = await _walkRespository.UpdateAsync(id, walk);
-
-                if (walk == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(_mapper.Map<WalkDto>(walk));
-            }
             
-            return BadRequest(ModelState);
+            var walk = _mapper.Map<Walk>(updateWalkRequestDto);
+
+            walk = await _walkRespository.UpdateAsync(id, walk);
+
+            if (walk == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<WalkDto>(walk));
+           
         }
 
         [HttpDelete]
