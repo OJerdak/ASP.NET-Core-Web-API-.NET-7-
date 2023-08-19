@@ -26,11 +26,6 @@ namespace NZWalks.API.Repositories
             return walk;
         }
 
-        public Task<Walk?> DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Walk?> GetByIdAsync(Guid id)
         {
             return await _dbContext.Walks
@@ -55,6 +50,21 @@ namespace NZWalks.API.Repositories
             existingWalk.RegionId = walk.RegionId;
             existingWalk.DifficultyId = walk.DifficultyId;
 
+            await _dbContext.SaveChangesAsync();
+
+            return existingWalk;
+        }
+
+        public async Task<Walk?> DeleteAsync(Guid id)
+        {
+            var existingWalk = await _dbContext.Walks.FindAsync(id);
+
+            if (existingWalk == null)
+            {
+                return null;
+            }
+
+            _dbContext.Walks.Remove(existingWalk);
             await _dbContext.SaveChangesAsync();
 
             return existingWalk;
