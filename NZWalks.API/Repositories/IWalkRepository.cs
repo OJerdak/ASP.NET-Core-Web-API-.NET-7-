@@ -10,7 +10,7 @@ namespace NZWalks.API.Repositories
 
         Task<Walk> CreateAsync(Walk region);
 
-        Task<Walk?> UpdateAsync(Guid id, Walk region);
+        Task<Walk?> UpdateAsync(Guid id, Walk walk);
 
         Task<Walk?> DeleteAsync(Guid id);
     }
