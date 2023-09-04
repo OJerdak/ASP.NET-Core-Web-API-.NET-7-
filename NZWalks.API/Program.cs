@@ -106,7 +106,7 @@ app.UseAuthorization();
 
 app.UseStaticFiles( new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory,"Images")),
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Images")),
     RequestPath = "/Images"
 });
 
