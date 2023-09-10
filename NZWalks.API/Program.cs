@@ -19,7 +19,7 @@ var _logger = new LoggerConfiguration().WriteTo.Console()
     .CreateLogger();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddSerilog();
+builder.Logging.AddSerilog(_logger);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
