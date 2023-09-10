@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var _logger = new LoggerConfiguration().WriteTo.Console()
-    .MinimumLevel.Information()
+    .MinimumLevel.Warning()
     .CreateLogger();
 
 builder.Logging.ClearProviders();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NZWalks.API.CustomActionFilters;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
@@ -36,19 +37,36 @@ namespace NZWalks.API.Controllers
         //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAll()
         {
-            _logger.LogInformation("GetAll Action Method was invoked");
-            //Get data from repository 
-            var regions = await regionRepository.GetAllAsync();
-
-            if(regions == null)
+            try
             {
-                return NotFound();
+                _logger.LogInformation("GetAll Action Method was invoked");
+            _logger.LogWarning("This is a warning");
+            _logger.LogError("This is an error");
+
+            
+                throw new Exception("This is a custom exception to be logged");
+
+                //Get data from repository 
+                var regions = await regionRepository.GetAllAsync();
+
+                if (regions == null)
+                {
+                    return NotFound();
+                }
+
+                _logger.LogInformation($"Finished GetAll Regions request with data: {JsonSerializer.Serialize(regions)}");
+                //Return DTO
+                return Ok(_mapper.Map<List<RegionDto>>(regions));
             }
 
-            _logger.LogInformation($"Finished GetAll Regions request with data: {JsonSerializer.Serialize(regions)}");
 
-            //Return DTO
-            return Ok(_mapper.Map<List<RegionDto>>(regions));
+            catch (Exception Ex)
+            {
+                _logger.LogError(Ex, Ex.Message);
+
+            }
+            return Ok();
+
         }
 
         [HttpGet]
