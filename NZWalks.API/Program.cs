@@ -8,10 +8,18 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var _logger = new LoggerConfiguration().WriteTo.Console()
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog();
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
@@ -109,7 +117,7 @@ app.UseStaticFiles( new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Images")),
     RequestPath = "/Images"
 });
-
+ 
 app.MapControllers();
 
 app.Run();
