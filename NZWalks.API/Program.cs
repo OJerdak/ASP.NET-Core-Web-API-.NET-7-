@@ -15,7 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var _logger = new LoggerConfiguration().WriteTo.Console()
+    .WriteTo.File("Logs/NzWalks_log.txt", rollingInterval: RollingInterval.Day)
     .MinimumLevel.Information()
+    .MinimumLevel.Warning()
+    .MinimumLevel.Error()
     .CreateLogger();
 
 builder.Logging.ClearProviders();
