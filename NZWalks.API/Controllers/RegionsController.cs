@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NZWalks.API.CustomActionFilters;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
@@ -62,6 +63,16 @@ namespace NZWalks.API.Controllers
                 _logger.LogError(ex.Message);
                 throw;
             }
+        }
+
+
+            catch (Exception Ex)
+            {
+                _logger.LogError(Ex, Ex.Message);
+
+            }
+            return Ok();
+
         }
 
         [HttpGet]
