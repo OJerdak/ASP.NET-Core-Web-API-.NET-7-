@@ -63,14 +63,6 @@ namespace NZWalks.API.Controllers
                 _logger.LogError(ex.Message);
                 throw;
             }
-        }
-
-
-            catch (Exception Ex)
-            {
-                _logger.LogError(Ex, Ex.Message);
-
-            }
             return Ok();
 
         }
