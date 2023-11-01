@@ -41,9 +41,9 @@ namespace NZWalks.API.Controllers
             //_logger.LogInformation("This is a warning log");
             //_logger.LogInformation("This is an error log");
 
-            try
-            {
-                throw new Exception("This is a custom exception");
+            //try
+            //{
+            //    throw new Exception("This is a custom exception");
 
                 //Get data from repository 
                 var regions = await regionRepository.GetAllAsync();
@@ -57,12 +57,12 @@ namespace NZWalks.API.Controllers
 
                 //Return DTO
                 return Ok(_mapper.Map<List<RegionDto>>(regions));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                throw;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex.Message);
+            //    throw;
+            //}
             return Ok();
 
         }

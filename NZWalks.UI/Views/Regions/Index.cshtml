@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NZWalks.UI.Models.DTO.RegionDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Regions</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Code</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var region in Model)
+        {
+            <tr>
+                <td>@region.Id</td>
+                <td>@region.Code</td>
+                <td>@region.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
