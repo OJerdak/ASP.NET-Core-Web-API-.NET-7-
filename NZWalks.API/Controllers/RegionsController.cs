@@ -88,9 +88,8 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPost]
-        [ValidateModel]
-        [Authorize(Roles = "Writer")]
-
+        //[ValidateModel]
+        //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto)
         {
             //Map or convert the DTO to Domain Model
